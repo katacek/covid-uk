@@ -6,6 +6,10 @@ const LATEST = 'LATEST';
 
 Apify.main(async () =>
 {
+
+    const kvStore = await Apify.openKeyValueStore('COVID-19-UK');
+    const dataset = await Apify.openDataset('COVID-19-UK-HISTORY');
+
     console.log('Launching Puppeteer...');
     const browser = await Apify.launchPuppeteer();
 
