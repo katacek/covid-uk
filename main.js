@@ -57,7 +57,7 @@ Apify.main(async () =>
             wales: getInt(wales),
             ireland: getInt(ireland),
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
-            lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString()
+            lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
             readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
         };
         return data;
