@@ -2,7 +2,7 @@ const Apify = require('apify');
 
 //const { log } = Apify.utils;
 const sourceUrl = 'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases';
-//const LATEST = 'LATEST';
+const LATEST = 'LATEST';
 
 Apify.main(async () =>
 {
@@ -12,6 +12,7 @@ Apify.main(async () =>
     const page = await browser.newPage();
     await Apify.utils.puppeteer.injectJQuery(page);
 
+    console.log('Going to website...');
     await page.goto('https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases');
     
     const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
@@ -24,8 +25,10 @@ Apify.main(async () =>
     await page.waitForSelector('div.flex-fluid');
     await page.waitFor(4000);
  
+    console.log('Getting data...');
     // page.evaluate(pageFunction[, ...args]), pageFunction <function|string> Function to be evaluated in the page context, returns: <Promise<Serializable>> Promise which resolves to the return value of pageFunction
-    const result = await page.evaluate(() => {
+    const result = await page.evaluate(() =>
+    {
 
         const getInt = (x)=>{
             return parseInt(x.replace(' ','').replace(',',''))};
@@ -55,9 +58,30 @@ Apify.main(async () =>
         };
         return data;
     });       
+    
     console.log(result)
 
-       
+    let latest = await kvStore.getValue(LATEST);
+    if (!latest) {
+        await kvStore.setValue('LATEST', data);
+        latest = data;
+    }
+    delete latest.lastUpdatedAtApify;
+    const actual = Object.assign({}, data);
+    delete actual.lastUpdatedAtApify;
+
+    if (JSON.stringify(latest) !== JSON.stringify(actual)) {
+        await dataset.pushData(data);
+    }
+
+    await kvStore.setValue('LATEST', data);
+    await Apify.pushData(data);
+
+
+    console.log('Closing Puppeteer...');
+    await browser.close();
+    console.log('Done.');  
+    
 });
 
 
