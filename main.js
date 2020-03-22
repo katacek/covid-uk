@@ -1,6 +1,5 @@
 const Apify = require('apify');
 
-//const { log } = Apify.utils;
 const sourceUrl = 'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases';
 const LATEST = 'LATEST';
 
@@ -16,7 +15,7 @@ Apify.main(async () =>
     const page = await browser.newPage();
     await Apify.utils.puppeteer.injectJQuery(page);
 
-    console.log('Going to website...');
+    console.log('Going to the website...');
     await page.goto('https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases');
     
     const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
@@ -59,7 +58,7 @@ Apify.main(async () =>
             ireland: getInt(ireland),
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString()
-            //readMe: 'https://apify.com/vaclavrut/covid-pl',
+            readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
         };
         return data;
         
@@ -89,40 +88,3 @@ Apify.main(async () =>
     console.log('Done.');  
     
 });
-
-
-
-
-
-
-
-
-
-
-            
-
-            // //Compare and save to history
-            // const latest = await kvStore.getValue(LATEST);
-            // delete latest.lastUpdatedAtApify;
-            // const actual = Object.assign({}, data);
-            // delete actual.lastUpdatedAtApify;
-
-            // if (JSON.stringify(latest) !== JSON.stringify(actual)) {
-            //     log.info('Data did change :( storing new to dataset.');
-            //     await dataset.pushData(data);
-            // }
-
-            // await kvStore.setValue(LATEST, data);
-            // log.info('Data stored, finished.');
-
-            // to have lovely public runs...
-        //     await Apify.pushData(data);
-        // },
-
-        // This function is called if the page processing failed more than maxRequestRetries+1 times.
-        // handleFailedRequestFunction: async ({ request }) => {
-        //     console.log(`Request ${request.url} failed twice.`);
-        // },
-    
-
-    
