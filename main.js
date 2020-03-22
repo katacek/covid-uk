@@ -47,6 +47,7 @@ Apify.main(async () =>
         const scottland = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
         const wales = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
         const ireland = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
+        
         const data = {
             totalInfected: getInt(totalInfected),
             dailyConfirmed: getInt(dailyConfirmed),
@@ -61,25 +62,26 @@ Apify.main(async () =>
             //readMe: 'https://apify.com/vaclavrut/covid-pl',
         };
         return data;
+        
     });       
     
     console.log(result)
 
     let latest = await kvStore.getValue(LATEST);
     if (!latest) {
-        await kvStore.setValue('LATEST', data);
-        latest = data;
+        await kvStore.setValue('LATEST', result);
+        latest = result;
     }
     delete latest.lastUpdatedAtApify;
-    const actual = Object.assign({}, data);
+    const actual = Object.assign({}, result);
     delete actual.lastUpdatedAtApify;
 
     if (JSON.stringify(latest) !== JSON.stringify(actual)) {
-        await dataset.pushData(data);
+        await dataset.pushData(result);
     }
 
-    await kvStore.setValue('LATEST', data);
-    await Apify.pushData(data);
+    await kvStore.setValue('LATEST', result);
+    await Apify.pushData(result);
 
 
     console.log('Closing Puppeteer...');
