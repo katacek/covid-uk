@@ -49,8 +49,7 @@ Apify.main(async () =>
         const scottland = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
         const wales = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
         const ireland = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
-        const test = null
-              
+                     
         const data = {
             totalInfected: getInt(totalInfected),
             dailyConfirmed: getInt(dailyConfirmed),
@@ -63,15 +62,14 @@ Apify.main(async () =>
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
             readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
-            test: test
-        };
+            };
         return data;
         
     });       
     
     console.log(result)
     
-    if ( !result.test ) {
+    if ( !result.totalInfected ) {
                 check = true;
             }
         
