@@ -2,7 +2,6 @@ const Apify = require('apify');
 
 const sourceUrl = 'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases';
 const LATEST = 'LATEST';
-let check = false;
 
 Apify.main(async () =>
 {
@@ -49,7 +48,7 @@ Apify.main(async () =>
         const scottland = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
         const wales = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
         const ireland = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
-                     
+
         const data = {
             totalInfected: getInt(totalInfected),
             dailyConfirmed: getInt(dailyConfirmed),
@@ -62,13 +61,16 @@ Apify.main(async () =>
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
             readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
-            };
+
+               };
+
         return data;
         
     });       
     
     console.log(result)
     
+
     if ( !result.totalInfected ) {
                 check = true;
             }
@@ -95,6 +97,7 @@ Apify.main(async () =>
     await browser.close();
     console.log('Done.');  
     
+
     // if there are no data for TotalInfected, send email, because that means something is wrong
     const env = await Apify.getEnv();
     if (check) {
@@ -110,4 +113,5 @@ Apify.main(async () =>
             { waitSecs: 0 },
         );
     };
+
 });
