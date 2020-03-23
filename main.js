@@ -111,5 +111,5 @@ Apify.main(async () =>
             },
             { waitSecs: 0 },
         );
-    
+    };
 });
