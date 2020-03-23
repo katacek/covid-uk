@@ -71,7 +71,7 @@ Apify.main(async () =>
     
     console.log(result)
     
-    if ( !result.test ) {
+    if ( result.test === null ) {
                 check = true;
             }
         
