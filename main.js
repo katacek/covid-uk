@@ -26,7 +26,8 @@ Apify.main(async () =>
     await page.goto(trackCoronavirusCasesLink), { waitUntil: 'networkidle0', timeout: 60000 };
    
     await page.waitForSelector('div.flex-fluid');
-    await page.waitFor(4000);
+    //await page.waitFor(4000);
+    await page.waitForSelector("text[vector-effect='non-scaling-stroke']");
  
     console.log('Getting data...');
     // page.evaluate(pageFunction[, ...args]), pageFunction <function|string> Function to be evaluated in the page context, returns: <Promise<Serializable>> Promise which resolves to the return value of pageFunction
