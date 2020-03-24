@@ -69,26 +69,26 @@ Apify.main(async () =>
     
     console.log(result)
     
-    if ( !result.totalInfected ) {
+    if ( !result.totalInfected || !result.dailyConfirmed || !result.recovered|| !result.deceased|| !result.england|| !result.scottland|| !result.wales|| !result.northenIreland) {
                 check = true;
             }
-        
-    
-    let latest = await kvStore.getValue(LATEST);
-    if (!latest) {
-        await kvStore.setValue('LATEST', result);
-        latest = result;
-    }
-    delete latest.lastUpdatedAtApify;
-    const actual = Object.assign({}, result);
-    delete actual.lastUpdatedAtApify;
+    else {
+            let latest = await kvStore.getValue(LATEST);
+            if (!latest) {
+                await kvStore.setValue('LATEST', result);
+                latest = result;
+            }
+            delete latest.lastUpdatedAtApify;
+            const actual = Object.assign({}, result);
+            delete actual.lastUpdatedAtApify;
 
-    if (JSON.stringify(latest) !== JSON.stringify(actual)) {
-        await dataset.pushData(result);
-    }
+            if (JSON.stringify(latest) !== JSON.stringify(actual)) {
+                await dataset.pushData(result);
+            }
 
-    await kvStore.setValue('LATEST', result);
-    await Apify.pushData(result);
+            await kvStore.setValue('LATEST', result);
+            await Apify.pushData(result);
+        }
 
 
     console.log('Closing Puppeteer...');
