@@ -20,7 +20,8 @@ Apify.main(async () =>
     console.log('Going to the website...');
     await page.goto('https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases');
     
-    const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
+    const trackCoronavirusCases = '#attachment_4091163 > div.attachment-details > h2 > a';
+    //const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
     await page.waitForSelector(trackCoronavirusCases);
 
     const trackCoronavirusCasesLink = await page.$eval(trackCoronavirusCases, el => el.href);
