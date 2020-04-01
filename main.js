@@ -82,7 +82,7 @@ Apify.main(async () =>
     
     console.log(result)
     
-    if ( !result.totalInfected || !result.dailyConfirmed || !result.recovered|| !result.deceased|| !result.england|| !result.scottland|| !result.wales|| !result.northenIreland) {
+    if ( !result.infected || !result.dailyConfirmed || !result.recovered|| !result.deceased|| !result.englandConfirmed|| !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed) {
                 check = true;
             }
     else {
