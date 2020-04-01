@@ -44,23 +44,31 @@ Apify.main(async () =>
         
         // eq() selector selects an element with a specific index number, text() method sets or returns the text content of the selected elements
         const totalInfected = $("text[vector-effect='non-scaling-stroke']").eq(0).text();
-        const dailyConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(1).text();
-        const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(2).text();
-        const deceased = $("text[vector-effect='non-scaling-stroke']").eq(3).text();
-        const england = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
-        const scottland = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
-        const wales = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
-        const ireland = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
+        const dailyConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(2).text();
+        const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
+        const deceased = $("text[vector-effect='non-scaling-stroke']").eq(1).text();
+        const englandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
+        const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
+        const scottlandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
+        const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
+        const walesConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(9).text();
+        const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
+        const irelandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(11).text();
+        const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(12).text();
                      
         const data = {
             totalInfected: getInt(totalInfected),
             dailyConfirmed: getInt(dailyConfirmed),
             recovered: getInt(patientsRecovered),
             deceased: getInt(deceased),
-            england: getInt(england),
-            scottland: getInt(scottland),
-            wales: getInt(wales),
-            northenIreland: getInt(ireland),
+            englandConfirmed: getInt(englandConfirmed),
+            englandDeceased: getInt(englandDeceased),
+            scottlandConfirmed: getInt(scottlandConfirmed),
+            scottlandDeceased: getInt(scottlandDeceased),
+            walesConfirmed: getInt(walesConfirmed),
+            walesDeceased: getInt(walesDeceased),
+            northenIrelandConfirmed: getInt(irelandConfirmed),
+            northenIrelandDeceased: getInt(irelandDeceased),
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
             readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
