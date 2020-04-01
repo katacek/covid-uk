@@ -57,10 +57,12 @@ Apify.main(async () =>
         const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(12).text();
                      
         const data = {
-            totalInfected: getInt(totalInfected),
-            dailyConfirmed: getInt(dailyConfirmed),
+            infected: getInt(totalInfected),
+            tested: "N/A",
             recovered: getInt(patientsRecovered),
             deceased: getInt(deceased),
+            countr: "UK",
+            dailyConfirmed: getInt(dailyConfirmed),
             englandConfirmed: getInt(englandConfirmed),
             englandDeceased: getInt(englandDeceased),
             scottlandConfirmed: getInt(scottlandConfirmed),
@@ -71,7 +73,7 @@ Apify.main(async () =>
             northenIrelandDeceased: getInt(irelandDeceased),
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
-            readMe: 'https://github.com/katacek/covid-uk/blob/master/README.md',
+            readMe: 'https://apify.com/katerinahronik/covid-uk',
             };
         return data;
         
