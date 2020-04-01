@@ -71,6 +71,7 @@ Apify.main(async () =>
             walesDeceased: getInt(walesDeceased),
             northenIrelandConfirmed: getInt(irelandConfirmed),
             northenIrelandDeceased: getInt(irelandDeceased),
+            historyData: "https://api.apify.com/v2/datasets/K1mXdufnpvr53AFk6/items?format=json&clean=1",
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
             lastUpdatedAtApify: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).toISOString(),
             readMe: 'https://apify.com/katerinahronik/covid-uk',
