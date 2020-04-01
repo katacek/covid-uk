@@ -45,31 +45,31 @@ Apify.main(async () =>
         // eq() selector selects an element with a specific index number, text() method sets or returns the text content of the selected elements
         const totalInfected = $("text[vector-effect='non-scaling-stroke']").eq(0).text();
         const dailyConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(2).text();
-        const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
+        //const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
         const deceased = $("text[vector-effect='non-scaling-stroke']").eq(1).text();
-        const englandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
-        const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
-        const scottlandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
-        const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
-        const walesConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(9).text();
-        const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
-        const irelandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(11).text();
-        const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(12).text();
+        const englandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
+        //const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
+        const scottlandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
+        //const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
+        const walesConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
+        //const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
+        const irelandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
+        //const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(12).text();
                      
         const data = {
             infected: getInt(totalInfected),
             tested: "N/A",
-            recovered: getInt(patientsRecovered),
+            //recovered: getInt(patientsRecovered),
             deceased: getInt(deceased),
             dailyConfirmed: getInt(dailyConfirmed),
             englandConfirmed: getInt(englandConfirmed),
-            englandDeceased: getInt(englandDeceased),
+            //englandDeceased: getInt(englandDeceased),
             scottlandConfirmed: getInt(scottlandConfirmed),
-            scottlandDeceased: getInt(scottlandDeceased),
+            //scottlandDeceased: getInt(scottlandDeceased),
             walesConfirmed: getInt(walesConfirmed),
-            walesDeceased: getInt(walesDeceased),
+            //walesDeceased: getInt(walesDeceased),
             northenIrelandConfirmed: getInt(irelandConfirmed),
-            northenIrelandDeceased: getInt(irelandDeceased),
+            //northenIrelandDeceased: getInt(irelandDeceased),
             country: "UK",
             historyData: "https://api.apify.com/v2/datasets/K1mXdufnpvr53AFk6/items?format=json&clean=1",
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
@@ -83,7 +83,7 @@ Apify.main(async () =>
     
     console.log(result)
     
-    if ( !result.infected || !result.dailyConfirmed || !result.recovered|| !result.deceased|| !result.englandConfirmed|| !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed) {
+    if ( !result.infected || !result.dailyConfirmed || !result.deceased|| !result.englandConfirmed|| !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed) {
                 check = true;
             }
     else {
