@@ -48,13 +48,13 @@ Apify.main(async () =>
         //const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
         const deceased = $("text[vector-effect='non-scaling-stroke']").eq(1).text();
         const englandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
-        //const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
+        const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
         const scottlandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
-        //const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
+        const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
         const walesConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
-        //const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
+        const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(9).text();
         const irelandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
-        //const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(12).text();
+        const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(11).text();
                      
         const data = {
             infected: getInt(totalInfected),
@@ -63,13 +63,13 @@ Apify.main(async () =>
             deceased: getInt(deceased),
             dailyConfirmed: getInt(dailyConfirmed),
             englandConfirmed: getInt(englandConfirmed),
-            //englandDeceased: getInt(englandDeceased),
+            englandDeceased: getInt(englandDeceased),
             scottlandConfirmed: getInt(scottlandConfirmed),
-            //scottlandDeceased: getInt(scottlandDeceased),
+            scottlandDeceased: getInt(scottlandDeceased),
             walesConfirmed: getInt(walesConfirmed),
-            //walesDeceased: getInt(walesDeceased),
+            walesDeceased: getInt(walesDeceased),
             northenIrelandConfirmed: getInt(irelandConfirmed),
-            //northenIrelandDeceased: getInt(irelandDeceased),
+            northenIrelandDeceased: getInt(irelandDeceased),
             country: "UK",
             historyData: "https://api.apify.com/v2/datasets/K1mXdufnpvr53AFk6/items?format=json&clean=1",
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
