@@ -26,9 +26,9 @@ Apify.main(async () =>
 
     const trackCoronavirusCasesLink = await page.$eval(trackCoronavirusCases, el => el.href);
     // networkidle0 : wait for all page to load
-    await page.goto(trackCoronavirusCasesLink), { waitUntil: 'networkidle0', timeout: 60000 };
+    await page.goto(trackCoronavirusCasesLink, { waitUntil: 'networkidle0', timeout: 60000 });
    
-    await page.waitForSelector('#UK_Countries_cases_976_layer');
+    await page.waitForSelector('#UK_Countries_cases_976_layer', { timeout: 60000 });
     await page.waitForSelector('div.flex-fluid');
     //await page.waitFor(4000);
     await page.waitForSelector("text[vector-effect='non-scaling-stroke']");
