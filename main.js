@@ -43,18 +43,18 @@ Apify.main(async () =>
         const now = new Date();
         
         // eq() selector selects an element with a specific index number, text() method sets or returns the text content of the selected elements
-        const totalInfected = $("text[vector-effect='non-scaling-stroke']").eq(0).text();
-        const dailyConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(2).text();
+        const totalInfected = $('strong:contains("Cumulative Totals")').closest('full-container').find('.responsive-text:contains(cases)').text().trim();
+        const dailyConfirmed = $('strong:contains("Daily Totals")').closest('full-container').find('.responsive-text:contains(cases)').text().trim();
         //const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
-        const deceased = $("text[vector-effect='non-scaling-stroke']").eq(1).text();
-        const englandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
-        const englandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(5).text();
-        const scottlandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(6).text();
-        const scottlandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(7).text();
-        const walesConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(8).text();
-        const walesDeceased = $("text[vector-effect='non-scaling-stroke']").eq(9).text();
-        const irelandConfirmed = $("text[vector-effect='non-scaling-stroke']").eq(10).text();
-        const irelandDeceased = $("text[vector-effect='non-scaling-stroke']").eq(11).text();
+        const deceased = $('strong:contains("Cumulative Totals")').closest('full-container').find('.responsive-text:contains(deaths)').text().trim();
+        const englandConfirmed = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        const englandDeceased = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        const scottlandConfirmed = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        const scottlandDeceased = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        const walesConfirmed =$('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        const walesDeceased = $('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        const irelandConfirmed = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        const irelandDeceased = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
                      
         const data = {
             infected: getInt(totalInfected),
