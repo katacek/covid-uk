@@ -11,6 +11,8 @@ Apify.main(async () =>
     const dataset = await Apify.openDataset('COVID-19-UK-HISTORY');
     const { email } = await Apify.getValue('INPUT');
 
+    try{
+
     console.log('Launching Puppeteer...');
     const browser = await Apify.launchPuppeteer();
 
@@ -39,7 +41,8 @@ Apify.main(async () =>
     {
 
         const getInt = (x)=>{
-            return parseInt(x.replace(' ','').replace(',',''))};
+            return parseInt(x.replace(' ','').replace(',','').replace(String.fromCharCode(160),''))};
+            
         const now = new Date();
         
         // eq() selector selects an element with a specific index number, text() method sets or returns the text content of the selected elements
@@ -56,6 +59,7 @@ Apify.main(async () =>
         const irelandConfirmed = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
         const irelandDeceased = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
                      
+        
         const data = {
             infected: getInt(totalInfected),
             tested: "N/A",
@@ -110,18 +114,33 @@ Apify.main(async () =>
     console.log('Done.');  
     
     // if there are no data for TotalInfected, send email, because that means something is wrong
-    const env = await Apify.getEnv();
-    if (check) {
-        await Apify.call(
-            'apify/send-mail',
-            {
-                to: email,
-                subject: `Covid-19 UK from ${env.startedAt} failed `,
-                html: `Hi, ${'<br/>'}
-                        <a href="https://my.apify.com/actors/${env.actorId}#/runs/${env.actorRunId}">this</a> 
-                        run had 0 TotalInfected, check it out.`,
-            },
-            { waitSecs: 0 },
-        );
-    };
+    // const env = await Apify.getEnv();
+    // if (check) {
+    //     await Apify.call(
+    //         'apify/send-mail',
+    //         {
+    //             to: email,
+    //             subject: `Covid-19 UK from ${env.startedAt} failed `,
+    //             html: `Hi, ${'<br/>'}
+    //                     <a href="https://my.apify.com/actors/${env.actorId}#/runs/${env.actorRunId}">this</a> 
+    //                     run had 0 TotalInfected, check it out.`,
+    //         },
+    //         { waitSecs: 0 },
+    //     );
+    // };
+}
+catch(err){
+
+    console.log(err)
+
+    let latest = await kvStore.getValue(LATEST);
+    var latestKvs = latest.lastUpdatedAtApify;
+    var latestKvsDate = new Date(latestKvs)
+    var d = new Date();
+    // adding two hours to d
+    d.setHours(d.getHours() - 2);
+    if (latestKvsDate < d) {
+        throw (err)
+    }
+}
 });
