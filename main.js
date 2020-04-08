@@ -59,7 +59,7 @@ Apify.main(async () =>
         const data = {
             infected: getInt(totalInfected),
             tested: "N/A",
-            //recovered: getInt(patientsRecovered),
+            recovered: "N/A",
             deceased: getInt(deceased),
             dailyConfirmed: getInt(dailyConfirmed),
             englandConfirmed: getInt(englandConfirmed),
