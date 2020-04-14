@@ -88,7 +88,7 @@ Apify.main(async () =>
     console.log(result)
     
     if ( !result.infected || !result.dailyConfirmed || !result.deceased|| !result.englandConfirmed|| !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed) {
-                check = true;
+                throw "One of the output is null";
             }
     else {
             let latest = await kvStore.getValue(LATEST);
