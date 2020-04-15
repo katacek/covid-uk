@@ -20,20 +20,20 @@ Apify.main(async () =>
     await Apify.utils.puppeteer.injectJQuery(page);
 
     console.log('Going to the website...');
-    await page.goto('https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases');
+    await page.goto('https://coronavirus.data.gov.uk/', { waitUntil: 'networkidle0' });
     
-    const trackCoronavirusCases = '#attachment_4091163 > div.attachment-details > h2 > a';
+    //const trackCoronavirusCases = '#attachment_4091163 > div.attachment-details > h2 > a';
     //const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
-    await page.waitForSelector(trackCoronavirusCases);
+    //await page.waitForSelector(trackCoronavirusCases);
 
-    const trackCoronavirusCasesLink = await page.$eval(trackCoronavirusCases, el => el.href);
+    // const trackCoronavirusCasesLink = await page.$eval(trackCoronavirusCases, el => el.href);
     // networkidle0 : wait for all page to load
-    await page.goto(trackCoronavirusCasesLink, { timeout: 60000 });
+    //await page.goto(trackCoronavirusCasesLink, { timeout: 60000 });
    
-    await page.waitForSelector('#UK_Countries_cases_976_layer', { timeout: 60000 });
-    await page.waitForSelector('div.flex-fluid');
-    //await page.waitFor(4000);
-    await page.waitForSelector("text[vector-effect='non-scaling-stroke']");
+    //await page.waitForSelector('#UK_Countries_cases_976_layer', { timeout: 60000 });
+    //await page.waitForSelector('div.flex-fluid');
+    await page.waitFor(4000);
+    //await page.waitForSelector("text[vector-effect='non-scaling-stroke']");
  
     console.log('Getting data...');
     // page.evaluate(pageFunction[, ...args]), pageFunction <function|string> Function to be evaluated in the page context, returns: <Promise<Serializable>> Promise which resolves to the return value of pageFunction
@@ -46,18 +46,18 @@ Apify.main(async () =>
         const now = new Date();
         
         // eq() selector selects an element with a specific index number, text() method sets or returns the text content of the selected elements
-        const totalInfected = $('strong:contains("Cumulative Totals")').closest('full-container').find('.responsive-text:contains(cases)').text().trim();
-        const dailyConfirmed = $('strong:contains("Daily Totals")').closest('full-container').find('.responsive-text:contains(cases)').text().trim();
+        const totalInfected = $('div:contains("Total number of lab-confirmed UK cases")').last().next().text().trim();
+        const dailyConfirmed = $('div:contains("Latest daily number of lab-confirmed UK cases")').last().next().text().trim();;
         //const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
-        const deceased = $('strong:contains("Cumulative Totals")').closest('full-container').find('.responsive-text:contains(deaths)').text().trim();
-        const englandConfirmed = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        const englandDeceased = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        const scottlandConfirmed = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        const scottlandDeceased = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        const walesConfirmed =$('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        const walesDeceased = $('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        const irelandConfirmed = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        const irelandDeceased = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        const deceased = $('div:contains("Total number of COVID-19 associated UK deaths in hospital").govuk-caption-s').last().next().text().trim();
+        //const englandConfirmed = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        //const englandDeceased = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        //const scottlandConfirmed = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        //const scottlandDeceased = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        //const walesConfirmed =$('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        //const walesDeceased = $('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        //const irelandConfirmed = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
+        //const irelandDeceased = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
                      
         
         const data = {
@@ -66,14 +66,14 @@ Apify.main(async () =>
             recovered: "N/A",
             deceased: getInt(deceased),
             dailyConfirmed: getInt(dailyConfirmed),
-            englandConfirmed: getInt(englandConfirmed),
-            englandDeceased: getInt(englandDeceased),
-            scottlandConfirmed: getInt(scottlandConfirmed),
-            scottlandDeceased: getInt(scottlandDeceased),
-            walesConfirmed: getInt(walesConfirmed),
-            walesDeceased: getInt(walesDeceased),
-            northenIrelandConfirmed: getInt(irelandConfirmed),
-            northenIrelandDeceased: getInt(irelandDeceased),
+            //englandConfirmed: getInt(englandConfirmed),
+            //englandDeceased: getInt(englandDeceased),
+            //scottlandConfirmed: getInt(scottlandConfirmed),
+            //scottlandDeceased: getInt(scottlandDeceased),
+            //walesConfirmed: getInt(walesConfirmed),
+            //walesDeceased: getInt(walesDeceased),
+            //northenIrelandConfirmed: getInt(irelandConfirmed),
+            //northenIrelandDeceased: getInt(irelandDeceased),
             country: "UK",
             historyData: "https://api.apify.com/v2/datasets/K1mXdufnpvr53AFk6/items?format=json&clean=1",
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
@@ -87,7 +87,7 @@ Apify.main(async () =>
     
     console.log(result)
     
-    if ( !result.infected || !result.dailyConfirmed || !result.deceased|| !result.englandConfirmed|| !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed) {
+    if ( !result.infected || !result.dailyConfirmed || !result.deceased /*|| !result.englandConfirmed || !result.scottlandConfirmed|| !result.walesConfirmed|| !result.northenIrelandConfirmed */ ) {
                 throw "One of the output is null";
             }
     else {
