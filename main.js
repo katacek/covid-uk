@@ -51,14 +51,14 @@ Apify.main(async () =>
         const dailyConfirmed = $('div:contains("Latest daily number of lab-confirmed UK cases")').last().next().text().trim();;
         //const patientsRecovered = $("text[vector-effect='non-scaling-stroke']").eq(4).text();
         const deceased = $('div:contains("Total number of COVID-19 associated UK deaths in hospital").govuk-caption-s').last().next().text().trim();
-        //const englandConfirmed = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        //const englandDeceased = $('strong:contains("England")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        //const scottlandConfirmed = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        //const scottlandDeceased = $('strong:contains("Scotland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        //const walesConfirmed =$('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        //const walesDeceased = $('strong:contains("Wales")').closest('full-container').find('.responsive-text').eq(1).text().trim();
-        //const irelandConfirmed = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(0).text().trim();
-        //const irelandDeceased = $('strong:contains("N. Ireland")').closest('full-container').find('.responsive-text').eq(1).text().trim();
+        const englandConfirmed = $('td:contains("England")').next().eq(0).text().trim();
+        const englandDeceased = $('td:contains("England")').next().next().eq(0).text().trim();
+        const scottlandConfirmed = $('td:contains("Scotland")').next().eq(0).text().trim();
+        const scottlandDeceased = $('td:contains("Scotland")').next().next().eq(0).text().trim();
+        const walesConfirmed =$('td:contains("Wales")').next().eq(0).text().trim();
+        const walesDeceased = $('td:contains("Wales")').next().next().eq(0).text().trim();
+        const irelandConfirmed = $('td:contains("Northern Ireland")').next().eq(0).text().trim();
+        const irelandDeceased = $('td:contains("Northern Ireland")').next().next().eq(0).text().trim();
                      
         
         const data = {
@@ -67,14 +67,14 @@ Apify.main(async () =>
             recovered: "N/A",
             deceased: getInt(deceased),
             dailyConfirmed: getInt(dailyConfirmed),
-            //englandConfirmed: getInt(englandConfirmed),
-            //englandDeceased: getInt(englandDeceased),
-            //scottlandConfirmed: getInt(scottlandConfirmed),
-            //scottlandDeceased: getInt(scottlandDeceased),
-            //walesConfirmed: getInt(walesConfirmed),
-            //walesDeceased: getInt(walesDeceased),
-            //northenIrelandConfirmed: getInt(irelandConfirmed),
-            //northenIrelandDeceased: getInt(irelandDeceased),
+            englandConfirmed: getInt(englandConfirmed),
+            englandDeceased: getInt(englandDeceased),
+            scottlandConfirmed: getInt(scottlandConfirmed),
+            scottlandDeceased: getInt(scottlandDeceased),
+            walesConfirmed: getInt(walesConfirmed),
+            walesDeceased: getInt(walesDeceased),
+            northenIrelandConfirmed: getInt(irelandConfirmed),
+            northenIrelandDeceased: getInt(irelandDeceased),
             country: "UK",
             historyData: "https://api.apify.com/v2/datasets/K1mXdufnpvr53AFk6/items?format=json&clean=1",
             sourceUrl:'https://www.gov.uk/government/publications/covid-19-track-coronavirus-cases',
