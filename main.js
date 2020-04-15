@@ -17,10 +17,11 @@ Apify.main(async () =>
     const browser = await Apify.launchPuppeteer();
 
     const page = await browser.newPage();
-    await Apify.utils.puppeteer.injectJQuery(page);
+   
 
     console.log('Going to the website...');
     await page.goto('https://coronavirus.data.gov.uk/', { waitUntil: 'networkidle0' });
+    await Apify.utils.puppeteer.injectJQuery(page);
     
     //const trackCoronavirusCases = '#attachment_4091163 > div.attachment-details > h2 > a';
     //const trackCoronavirusCases = '#attachment_4077017 > div.attachment-details > h2 > a';
